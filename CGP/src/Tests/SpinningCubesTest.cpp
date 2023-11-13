@@ -48,6 +48,8 @@ SpinningCubesTest::SpinningCubesTest() :
    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
+
+    
     cubePositions =  {
         glm::vec3(0.0f,  0.0f,  0.0f),
         glm::vec3(2.0f,  5.0f, -15.0f),
@@ -72,17 +74,17 @@ SpinningCubesTest::SpinningCubesTest() :
 
     model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-    shaderProgram->SetMatrix4("model", glm::value_ptr(model));
+    shaderProgram->SetMatrix4("model", model);
 
 
 
     view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-    shaderProgram->SetMatrix4("view", glm::value_ptr(view));
+    shaderProgram->SetMatrix4("view", view);
 
 
 
     projection = glm::perspective(glm::radians(camera->Zoom), 800.0f / 600.0f, 0.1f, 100.0f);
-    shaderProgram->SetMatrix4("projection", glm::value_ptr(projection));
+    shaderProgram->SetMatrix4("projection", projection);
 
     // init vertex array and buffer
     vertexArray = new VertexArray();
@@ -124,10 +126,10 @@ void SpinningCubesTest::OnRender()  {
    
 
     view = camera->GetViewMatrix();
-    shaderProgram->SetMatrix4("view", glm::value_ptr(view));
+    shaderProgram->SetMatrix4("view", view);
 
     projection = glm::perspective(glm::radians(camera->Zoom), 800.0f / 600.0f, 0.1f, 100.0f);
-    shaderProgram->SetMatrix4("projection", glm::value_ptr(projection));
+    shaderProgram->SetMatrix4("projection",projection);
 
 
     texture_1->Bind(0);
@@ -149,7 +151,7 @@ void SpinningCubesTest::OnRender()  {
             model = glm::rotate(model, glm::radians(angle), glm::vec3(0.5f, 1.0f, 0.0f));
         }
 
-        shaderProgram->SetMatrix4("model", glm::value_ptr(model));
+        shaderProgram->SetMatrix4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 

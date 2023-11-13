@@ -7,7 +7,8 @@
 #include "../../External/glm/glm.hpp"
 #include "../../External/glm/gtc/matrix_transform.hpp"
 #include "../../External/glm/gtc/type_ptr.hpp"
-
+#include"../Renderer.h"
+#include "../Material.h"
 class LightingExperiments : public Test{
 
 public:
@@ -21,14 +22,14 @@ public:
 
 private:
 
-	VertexArray* lightSourceVAO;
-	VertexArray* litObjectVAO;
-	VertexBuffer* vertexBuffer;
+	Renderer* renderer;
 	Shader* unlitShaderProgram;
 	Shader* litShaderProgram;
 	Texture* diffuseTexture;
 	Texture* specularTexture;
 	Texture* emissionTexture;
+	Material* lightMaterial;
+	Material* litMaterial;
 	Camera* camera;
 	glm::mat4 model;
 	glm::mat4 view;
@@ -38,6 +39,7 @@ private:
 	float lastX = 0.0f;
 	float lastY = 0.0f;
 	bool firstMouse = true;
+
 
 	
 };

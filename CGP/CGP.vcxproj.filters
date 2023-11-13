@@ -39,6 +39,12 @@
     <ClCompile Include="src\Tests\LightingExperiments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -92,7 +98,13 @@
     <ClInclude Include="src\Tests\LightingExperiments.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tests\FractalTest.h">
+    <ClInclude Include="src\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DefaultPaths.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -115,6 +127,8 @@
     <None Include="Shaders\litShader.frag" />
     <None Include="Shaders\Gouraud.vert" />
     <None Include="Shaders\Gouraud.frag" />
+    <None Include="Shaders\directionalLight.vert" />
+    <None Include="Shaders\directionalLight.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="External\Textures\awesomeface.png">
@@ -126,13 +140,13 @@
     <Image Include="External\Textures\tex123.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="External\Textures\container2.png">
+    <Image Include="External\Textures\diffuse.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="External\Textures\container2_specular.png">
+    <Image Include="External\Textures\emission.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="External\Textures\matrix.jpg">
+    <Image Include="External\Textures\specular.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -56,11 +56,11 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
     glDeleteShader(fragment);
 }
 
-void Shader::Activate() {
+void Shader::Activate() const {
 	glUseProgram(ID);
 
 }
-void Shader::Deactivate() {
+void Shader::Deactivate() const{
     glUseProgram(0);
 
 }
@@ -77,11 +77,11 @@ void Shader::SetInt(const std::string& name, int value) const {
 void Shader::SetFloat(const std::string& name, float value) const {
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
-void Shader::SetMatrix4(const std::string& name, const float* value) const {
-    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, value);
+void Shader::SetMatrix4(const std::string& name, glm::mat4& m4) const {
+    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(m4));
 }
-void Shader::SetVec3(const std::string& name, const float* value) const {
-    glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, value);
+void Shader::SetVec3(const std::string& name,glm::vec3& v3) const {
+    glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, glm::value_ptr(v3));
 }
 void Shader::checkCompileErrors(unsigned int shader, std::string type)
 {

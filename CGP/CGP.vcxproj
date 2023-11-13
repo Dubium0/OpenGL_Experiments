@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\stb_image.cpp" />
+    <ClCompile Include="src\Material.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Tests\LightingExperiments.cpp" />
@@ -38,8 +40,10 @@
     <ClInclude Include="External\stb_image.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Common.h" />
+    <ClInclude Include="src\DefaultPaths.h" />
+    <ClInclude Include="src\Material.h" />
+    <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Shader.h" />
-    <ClInclude Include="src\Tests\FractalTest.h" />
     <ClInclude Include="src\Tests\LightingExperiments.h" />
     <ClInclude Include="src\Tests\SpinningCubesTest.h" />
     <ClInclude Include="src\Tests\Test.h" />
@@ -59,6 +63,8 @@
     <None Include="Dependencies\GLEW\doc\install.html" />
     <None Include="Dependencies\GLEW\doc\log.html" />
     <None Include="Dependencies\GLEW\doc\wglew.html" />
+    <None Include="Shaders\directionalLight.frag" />
+    <None Include="Shaders\directionalLight.vert" />
     <None Include="Shaders\Gouraud.frag" />
     <None Include="Shaders\Gouraud.vert" />
     <None Include="Shaders\litShader.frag" />
@@ -71,9 +77,9 @@
   <ItemGroup>
     <Image Include="External\Textures\awesomeface.png" />
     <Image Include="External\Textures\container.jpg" />
-    <Image Include="External\Textures\container2.png" />
-    <Image Include="External\Textures\container2_specular.png" />
-    <Image Include="External\Textures\matrix.jpg" />
+    <Image Include="External\Textures\diffuse.png" />
+    <Image Include="External\Textures\emission.jpg" />
+    <Image Include="External\Textures\specular.png" />
     <Image Include="External\Textures\tex123.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -170,6 +176,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -185,6 +192,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
