@@ -25,7 +25,9 @@
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Tests\LightingExperiments.cpp" />
+    <ClCompile Include="src\Tests\PointLight_Test.cpp" />
     <ClCompile Include="src\Tests\SpinningCubesTest.cpp" />
+    <ClCompile Include="src\Tests\SpotLightTest.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
@@ -40,12 +42,13 @@
     <ClInclude Include="External\stb_image.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Common.h" />
-    <ClInclude Include="src\DefaultPaths.h" />
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Tests\LightingExperiments.h" />
+    <ClInclude Include="src\Tests\PointLight_Test.h" />
     <ClInclude Include="src\Tests\SpinningCubesTest.h" />
+    <ClInclude Include="src\Tests\SpotLightTest.h" />
     <ClInclude Include="src\Tests\Test.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\VertexArrayAttribute.h" />
@@ -71,6 +74,10 @@
     <None Include="Shaders\litShader.vert" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
+    <None Include="Shaders\pointLight.frag" />
+    <None Include="Shaders\pointLight.vert" />
+    <None Include="Shaders\spotlight.frag" />
+    <None Include="Shaders\spotlight.vert" />
     <None Include="Shaders\unlitShader.frag" />
     <None Include="Shaders\unlitShader.vert" />
   </ItemGroup>

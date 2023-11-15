@@ -11,8 +11,8 @@
 #include "VertexArray.h"
 #include "Tests/SpinningCubesTest.h"
 #include "Tests/LightingExperiments.h"
-
-
+#include "Tests/PointLight_Test.h"
+#include "Tests/SpotLightTest.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -48,6 +48,19 @@ void processInput(GLFWwindow* window)
     {
         currentTest->~Test();
         currentTest = new LightingExperiments();
+
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+    {
+        currentTest->~Test();
+        currentTest = new PointLightTest();
+
+    }
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+    {
+        currentTest->~Test();
+        currentTest = new SpotLightTest();
 
     }
     
@@ -89,7 +102,7 @@ int main(void) {
 
     
 
-    currentTest = new LightingExperiments();
+    currentTest = new PointLightTest();
   
 
     

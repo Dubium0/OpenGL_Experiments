@@ -23,14 +23,9 @@ public:
 private:
 
 	Renderer* renderer;
-	Shader* unlitShaderProgram;
-	Shader* litShaderProgram;
-	Texture* diffuseTexture;
-	Texture* specularTexture;
-	Texture* emissionTexture;
 	Material* lightMaterial;
 	Material* litMaterial;
-	Camera* camera;
+	Camera*	  camera;
 	glm::mat4 model;
 	glm::mat4 view;
 	glm::mat4 projection;

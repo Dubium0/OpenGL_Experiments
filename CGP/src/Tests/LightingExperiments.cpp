@@ -99,12 +99,17 @@ LightingExperiments::LightingExperiments() {
 
   
 
-    renderer = new Renderer(vertices, sizeof(vertices), lightMaterial, camera);
+    renderer = new Renderer(vertices, sizeof(vertices));
    
 }
 
 LightingExperiments::~LightingExperiments() {
-   
+
+    delete renderer;
+    delete lightMaterial;
+    delete litMaterial;
+    delete camera;
+
 }
 
 void LightingExperiments::OnRender() {
@@ -124,8 +129,8 @@ void LightingExperiments::OnRender() {
  
     lightMaterial->SetMaterialAttribute("model", model,S_MAT4);
     
-   renderer->ChangeMaterialTarget(lightMaterial);
-    renderer->Render();
+    
+    renderer->Render(*lightMaterial,*camera);
    
     
     
@@ -146,8 +151,8 @@ void LightingExperiments::OnRender() {
     model = glm::translate(model, cubePositions[1]);
  
     litMaterial->SetMaterialAttribute("model", model,S_MAT4);
-    renderer->ChangeMaterialTarget(litMaterial);
-    renderer->Render();
+    //renderer->ChangeMaterialTarget(litMaterial);
+    renderer->Render(*litMaterial, *camera);
   
 
 

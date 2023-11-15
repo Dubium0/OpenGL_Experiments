@@ -1,5 +1,4 @@
 #pragma once
-
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -49,23 +48,7 @@ public:
 
     glm::mat4 GetViewMatrix()
     {
-        glm::mat4 rotation = glm::mat4(1.0f);
-        rotation[0][0] = Right.x; // First column, first row
-        rotation[1][0] = Right.y;
-        rotation[2][0] = Right.z;
-        rotation[0][1] = Up.x; // First column, second row
-        rotation[1][1] = Up.y;
-        rotation[2][1] = Up.z;
-        rotation[0][2] = Front.x; // First column, third row
-        rotation[1][2] = Front.y;
-        rotation[2][2] = Front.z;
-        glm::mat4 trans = glm::mat4(1.0f);
-        trans[3][0] = -Position.x;
-        trans[3][1] = -Position.y;
-        trans[3][2] = -Position.z;
-        
-
-        return rotation * trans;
+        return glm::lookAt(Position, Position + Front, Up);
     }
 
 
@@ -75,14 +58,13 @@ public:
         float velocity = MovementSpeed * deltaTime;
         float prevY = Position.y;
         if (direction == FORWARD)
-            Position -=Front* velocity;
+            Position +=Front* velocity;
         if (direction == BACKWARD)
-            Position += Front * velocity;
+            Position -= Front * velocity;
         if (direction == LEFT)
             Position -= Right * velocity;
         if (direction == RIGHT)
             Position += Right * velocity;
-        Position.y = prevY;
         if (direction == UPWARD)
             Position += Up * velocity;
         if (direction == DOWNWARD)
@@ -126,8 +108,8 @@ private:
         // calculate the new Front vector
         glm::vec3 front;
         front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-        front.y = -sin(glm::radians(Pitch));
-        front.z = -sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+        front.y = sin(glm::radians(Pitch));
+        front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
         Front = glm::normalize(front);
         // also re-calculate the Right and Up vector
         Right = glm::normalize(glm::cross(Front, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.

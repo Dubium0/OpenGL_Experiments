@@ -13,8 +13,4 @@ private:
 	std::string path;
 	unsigned char* data;
 	int WIDTH, HEIGHT, NR_CHANNELS;
-	
-	
-
-
 };

@@ -1,52 +1,52 @@
 #include "SpinningCubesTest.h"
 
 SpinningCubesTest::SpinningCubesTest() :
-	vertexArray(nullptr), vertexBuffer(nullptr), vertexArrayAttribute(nullptr), shaderProgram(nullptr), 
-	texture_1(nullptr), texture_2(nullptr), camera(nullptr),
+	camera(nullptr),
 	model(glm::mat4(1.0f)), view(glm::mat4(1.0f)), projection(glm::mat4(1.0f)) {
 
     float vertices[] = {
-   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-   -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-   -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+        // positions          // normals           // texture coords
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-   -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-   -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-   -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-   -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-   -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-   -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-   -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-   -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
     };
 
     
@@ -64,55 +64,44 @@ SpinningCubesTest::SpinningCubesTest() :
     };
     //init camera
     camera = new Camera();
-    // init shader program and set properties
-    shaderProgram = new Shader("Shaders/myShader.vert", "Shaders/myShader.frag");
-    shaderProgram->Activate();
-
-    shaderProgram->SetInt("texture1", 0);
-
-    shaderProgram->SetInt("texture2", 1);
+  
+    material = new Material("Shaders/directionalLight.vert", "Shaders/directionalLight.frag");
 
     model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-    shaderProgram->SetMatrix4("model", model);
+    //shaderProgram->SetMatrix4("model", model);
+    material->SetMaterialAttribute("model", model,S_MAT4);
 
 
-
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-    shaderProgram->SetMatrix4("view", view);
-
-
-
-    projection = glm::perspective(glm::radians(camera->Zoom), 800.0f / 600.0f, 0.1f, 100.0f);
-    shaderProgram->SetMatrix4("projection", projection);
-
-    // init vertex array and buffer
-    vertexArray = new VertexArray();
-    vertexBuffer = new VertexBuffer(vertices, sizeof(vertices));
-
-    vertexArrayAttribute = new VertexArrayAttribute();
-    vertexArrayAttribute->PushAttributef(3);
-    vertexArrayAttribute->PushAttributef(2);
-
-    vertexArray->AddVertexArrayAttributef(*vertexBuffer, *vertexArrayAttribute);
-
-
+    renderer = new Renderer(vertices, sizeof(vertices));
     
+    material->AddTexture("objectMaterial.diffuse", "External/Textures/diffuse.png", GL_REPEAT, GL_NEAREST);
+    material->AddTexture("objectMaterial.emission", "External/Textures/emission.jpg", GL_REPEAT, GL_NEAREST);
+    material->AddTexture("objectMaterial.specular", "External/Textures/specular.png", GL_REPEAT, GL_NEAREST);
+    
+    material->SetMaterialAttribute("objectMaterial.shininess", 32.0f, S_FLOAT);
+    
+    directionalLightDirection = glm::vec3(-0.2f, -1.0f, -0.3f);
+    glm::vec3 lightAmbient(0.1f, 0.1f, 0.1f);
+    glm::vec3 lightDiffuse(0.8f, 0.8f, 0.8f);
+    glm::vec3 lightSpecular(1.0f, 1.0f, 1.0f);
 
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    //init texture
-    texture_1 = new Texture("External/Textures/container.jpg", GL_REPEAT, GL_NEAREST);
-    texture_2 = new Texture("External/Textures/awesomeface.png", GL_REPEAT, GL_NEAREST);
+    material->SetMaterialAttribute("lightMaterial.direction", directionalLightDirection, S_VEC3);
+    material->SetMaterialAttribute("lightMaterial.ambient", lightAmbient, S_VEC3);
+    material->SetMaterialAttribute("lightMaterial.diffuse", lightDiffuse, S_VEC3);
+    material->SetMaterialAttribute("lightMaterial.specular", lightSpecular, S_VEC3);
 
-
+    material->SetMaterialAttribute("viewPos",camera->Position, S_VEC3);
 }
 
 SpinningCubesTest::~SpinningCubesTest() {
-    vertexArray->~VertexArray();
-    vertexBuffer->~VertexBuffer();
-    texture_1->~Texture();
-    texture_2->~Texture();
+    
+    delete renderer;
+    delete material;
+    delete camera;
 
+
+    
 }
 void SpinningCubesTest::OnRender()  {
     float t = static_cast<float>(glfwGetTime());
@@ -122,37 +111,22 @@ void SpinningCubesTest::OnRender()  {
     glEnable(GL_DEPTH_TEST);
 
 
-    shaderProgram->Activate();
+    //shaderProgram->Activate();
    
 
-    view = camera->GetViewMatrix();
-    shaderProgram->SetMatrix4("view", view);
-
-    projection = glm::perspective(glm::radians(camera->Zoom), 800.0f / 600.0f, 0.1f, 100.0f);
-    shaderProgram->SetMatrix4("projection",projection);
-
-
-    texture_1->Bind(0);
-    texture_2->Bind(1);
-
-    //glBindVertexArray(VAO);
-    vertexArray->Bind();
-
+    material->SetMaterialAttribute("viewPos", camera->Position, S_VEC3);
+    
+    directionalLightDirection = glm::vec3((sin(t*5.0f) + 1.0f) / 2.0f, -1.0f, -0.3f);
+    material->SetMaterialAttribute("lightMaterial.direction", directionalLightDirection, S_VEC3);
+    
     for (unsigned int i = 0; i < 10; i++) {
         model = glm::mat4(1.0f);
         model = glm::translate(model, cubePositions[i]);
-        if (i % 3 == 0) {
-            float angle = 20.0f * (i + 1);
-            model = glm::rotate(model, t + glm::radians(angle), glm::vec3(0.5f, 1.0f, 0.0f));
-
-        }
-        else {
-            float angle = 20.0f * (i + 1);
-            model = glm::rotate(model, glm::radians(angle), glm::vec3(0.5f, 1.0f, 0.0f));
-        }
-
-        shaderProgram->SetMatrix4("model", model);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        float angle = 20.0f * (i);
+        model = glm::rotate(model, glm::radians(angle), glm::vec3(0.5f, 1.0f, 0.0f));
+        material->SetMaterialAttribute("model", model,S_MAT4);
+        //glDrawArrays(GL_TRIANGLES, 0, 36);
+        renderer->Render(*material,*camera);
     }
 
 

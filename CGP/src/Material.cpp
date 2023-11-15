@@ -31,7 +31,7 @@ Material::~Material() {
 	delete shader;
 	for (auto& x : textures) {
 		
-		x.second->~Texture();
+		delete x.second;
 		
 	}
 	

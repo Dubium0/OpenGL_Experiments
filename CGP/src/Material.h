@@ -6,7 +6,6 @@
 #include "../External/glm/glm.hpp"
 #include "../External/glm/gtc/matrix_transform.hpp"
 #include "../External/glm/gtc/type_ptr.hpp"
-#include "DefaultPaths.h"
 #include <unordered_map>
 
 enum UniformType{ S_FLOAT,S_INT, S_BOOL,S_VEC3,S_MAT4 };
@@ -85,7 +84,7 @@ public:
 	
 
 private:
-	const Shader* shader;
+	Shader* shader;
 	std::unordered_map<std::string, Texture* > textures;
 
 

@@ -1,6 +1,5 @@
 #pragma once
-#include "Shader.h"
-#include "Texture.h"
+
 #include <vector>
 #include "../External/glm/glm.hpp"
 #include "../External/glm/gtc/matrix_transform.hpp"
@@ -16,15 +15,13 @@
 class Renderer {
 public:
 	// this renderer expects it vertices data as [position,normal,uv]
-	Renderer(const void* vertices, int size, Material* materialTarget, Camera* cameraTarget);
+	Renderer(const void* vertices, int size);
 	~Renderer() {
-		vao->~VertexArray();
-		vbo->~VertexBuffer();
-
+		delete vao;
+		delete vbo;
+			
 	}
-	void Render() ;
-	void ChangeMaterialTarget(Material* material);
-	void ChangeCameraTarget(Camera* camera);
+	void Render( Material& material , Camera& camera) ;
 
 
 
@@ -32,12 +29,10 @@ public:
 private: 
 	
 	//Shader* shader;
-	Material* material;
-	Camera* camera;
+
 	VertexArray* vao;
 	VertexBuffer* vbo;
 	unsigned int vertexCount;
-	glm::mat4 model;
 	glm::mat4 view;
 	glm::mat4 projection;
 	

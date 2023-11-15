@@ -45,6 +45,12 @@
     <ClCompile Include="src\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tests\PointLight_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\SpotLightTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -101,10 +107,13 @@
     <ClInclude Include="src\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\DefaultPaths.h">
+    <ClInclude Include="src\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer.h">
+    <ClInclude Include="src\Tests\PointLight_Test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\SpotLightTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -129,6 +138,10 @@
     <None Include="Shaders\Gouraud.frag" />
     <None Include="Shaders\directionalLight.vert" />
     <None Include="Shaders\directionalLight.frag" />
+    <None Include="Shaders\pointLight.vert" />
+    <None Include="Shaders\pointLight.frag" />
+    <None Include="Shaders\spotlight.frag" />
+    <None Include="Shaders\spotlight.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="External\Textures\awesomeface.png">

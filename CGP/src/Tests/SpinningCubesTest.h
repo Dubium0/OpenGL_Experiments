@@ -7,7 +7,7 @@
 #include "../../External/glm/glm.hpp"
 #include "../../External/glm/gtc/matrix_transform.hpp"
 #include "../../External/glm/gtc/type_ptr.hpp"
-
+#include "../Renderer.h"
 class SpinningCubesTest : public Test {
 
 public:
@@ -19,13 +19,11 @@ public:
 	void MouseScrollCallBack(GLFWwindow* window, double xoffset, double yoffset,float deltaTime) override;
 	void KeyboardInputCallBack(GLFWwindow* window, float deltaTime) override;
 private:
-	VertexArray* vertexArray;
-	VertexArrayAttribute* vertexArrayAttribute;
-	VertexBuffer* vertexBuffer;
-	Shader* shaderProgram;
-	Texture* texture_1;
-	Texture* texture_2;
-	Camera* camera;
+	
+	Renderer*	renderer;
+	Material*	 material;
+	Camera*		camera;
+	glm::vec3 directionalLightDirection;
 	glm::mat4 model;
 	glm::mat4 view;
 	glm::mat4 projection;
