@@ -22,7 +22,7 @@ struct Material {
 }; 
 
 uniform Light lightMaterial;
-uniform Material objectMaterial;
+uniform Material material;
 uniform vec3 viewPos;
 
 
@@ -30,28 +30,28 @@ void main()
 {   
     // ambient light
  
-    vec3 ambient = lightMaterial.ambient * vec3( texture(objectMaterial.diffuse,TexCoords));
+    vec3 ambient = lightMaterial.ambient * vec3( texture(material.diffuse,TexCoords));
     
     
     // diffuse light
     vec3 norm = normalize(Normal);
     vec3 lightDirection = normalize(-lightMaterial.direction);
     float diff = max(dot(norm,lightDirection),0.0);
-    vec3 diffuse = diff*lightMaterial.diffuse* vec3( texture(objectMaterial.diffuse,TexCoords));
+    vec3 diffuse = diff*lightMaterial.diffuse* vec3( texture(material.diffuse,TexCoords));
     //specular light
     
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDirection, norm); 
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), objectMaterial.shininess);
-    vec3 specularMap  =vec3(texture(objectMaterial.specular,TexCoords ));
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    vec3 specularMap  =vec3(texture(material.specular,TexCoords ));
     vec3 specular = lightMaterial.specular * spec * specularMap ;
     
 
     vec3 emission = vec3(0.0);
     if(specularMap.x !=0.0){
-     emission  =vec3(texture(objectMaterial.emission,TexCoords));
+     emission  =vec3(texture(material.emission,TexCoords));
     }
    
     vec3 result = specular + ambient  + diffuse + emission;
-    FragColor = vec4(result,1.0);
+    FragColor = vec4(1.0,1.0,1.0,1.0);
 }

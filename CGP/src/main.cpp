@@ -13,6 +13,8 @@
 #include "Tests/LightingExperiments.h"
 #include "Tests/PointLight_Test.h"
 #include "Tests/SpotLightTest.h"
+#include "Tests/MultipleLightTest.h"
+#include "Tests/ModelLoadingTest.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -63,6 +65,18 @@ void processInput(GLFWwindow* window)
         currentTest = new SpotLightTest();
 
     }
+    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+    {
+        currentTest->~Test();
+        currentTest = new MultipleLight();
+
+    }
+    if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+    {
+        currentTest->~Test();
+        currentTest = new ModelLoadingTest();
+
+    }
     
     currentTest->KeyboardInputCallBack(window, deltaTime);
 }   
@@ -102,10 +116,9 @@ int main(void) {
 
     
 
-    currentTest = new PointLightTest();
+    currentTest = new ModelLoadingTest();
   
-
-    
+  
   
   
     while (!glfwWindowShouldClose(window))
@@ -119,9 +132,7 @@ int main(void) {
        
         //handle rendering
         currentTest->OnRender();
-        //glDrawElements(GL_TRIANGLES, (unsigned int)(sizeof(indices) / sizeof(unsigned int)), GL_UNSIGNED_INT, 0);
-     
-
+    
 
         // check-call events and swap buffer
         glfwSwapBuffers(window);
@@ -129,10 +140,9 @@ int main(void) {
     }
     
  
-    //glDeleteBuffers(1, &VBO);
-    //glDeleteVertexArrays(1, &VAO);
+
     currentTest->~Test();
-    //glDeleteBuffers(1, &EBO);
+
     
 
     glfwTerminate(); 

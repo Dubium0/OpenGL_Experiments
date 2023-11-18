@@ -16,6 +16,8 @@ class Renderer {
 public:
 	// this renderer expects it vertices data as [position,normal,uv]
 	Renderer(const void* vertices, int size);
+	Renderer(const void* vertices, int verticesSize, const void* indices, int indicesSize);
+	
 	~Renderer() {
 		delete vao;
 		delete vbo;
@@ -29,10 +31,11 @@ public:
 private: 
 	
 	//Shader* shader;
-
 	VertexArray* vao;
 	VertexBuffer* vbo;
+	IndexBuffer* ebo;
 	unsigned int vertexCount;
+	unsigned int indexCount;
 	glm::mat4 view;
 	glm::mat4 projection;
 	

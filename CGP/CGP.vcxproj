@@ -20,11 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\stb_image.cpp" />
+    <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Tests\LightingExperiments.cpp" />
+    <ClCompile Include="src\Tests\ModelLoadingTest.cpp" />
+    <ClCompile Include="src\Tests\MultipleLightTest.cpp" />
     <ClCompile Include="src\Tests\PointLight_Test.cpp" />
     <ClCompile Include="src\Tests\SpinningCubesTest.cpp" />
     <ClCompile Include="src\Tests\SpotLightTest.cpp" />
@@ -42,16 +45,21 @@
     <ClInclude Include="External\stb_image.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Common.h" />
+    <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Material.h" />
+    <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Tests\LightingExperiments.h" />
+    <ClInclude Include="src\Tests\ModelLoadingTest.h" />
+    <ClInclude Include="src\Tests\MultipleLightTest.h" />
     <ClInclude Include="src\Tests\PointLight_Test.h" />
     <ClInclude Include="src\Tests\SpinningCubesTest.h" />
     <ClInclude Include="src\Tests\SpotLightTest.h" />
     <ClInclude Include="src\Tests\Test.h" />
     <ClInclude Include="src\Texture.h" />
-    <ClInclude Include="src\VertexArrayAttribute.h" />
+    <ClInclude Include="src\TextureLoader.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\VertexArray.h" />
   </ItemGroup>
@@ -66,12 +74,16 @@
     <None Include="Dependencies\GLEW\doc\install.html" />
     <None Include="Dependencies\GLEW\doc\log.html" />
     <None Include="Dependencies\GLEW\doc\wglew.html" />
+    <None Include="Shaders\1.model_loading.frag" />
+    <None Include="Shaders\1.model_loading.vert" />
     <None Include="Shaders\directionalLight.frag" />
     <None Include="Shaders\directionalLight.vert" />
     <None Include="Shaders\Gouraud.frag" />
     <None Include="Shaders\Gouraud.vert" />
     <None Include="Shaders\litShader.frag" />
     <None Include="Shaders\litShader.vert" />
+    <None Include="Shaders\multipleLight.frag" />
+    <None Include="Shaders\multipleLight.vert" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
     <None Include="Shaders\pointLight.frag" />
@@ -142,12 +154,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)CGP\Dependencies\GLEW\include;$(SolutionDir)CGP\External;$(SolutionDir)\CGP\Dependencies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)CGP\Dependencies\GLEW\lib;$(SolutionDir)CGP\Dependencies\GLFW\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)CGP\Dependencies\assimp\include;$(SolutionDir)CGP\Dependencies\GLEW\include;$(SolutionDir)CGP\External;$(SolutionDir)\CGP\Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)CGP\Dependencies\assimp\lib;$(SolutionDir)CGP\Dependencies\GLEW\lib;$(SolutionDir)CGP\Dependencies\GLFW\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)CGP\Dependencies\GLEW\include;$(SolutionDir)CGP\External;$(SolutionDir)\CGP\Dependencies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)CGP\Dependencies\GLEW\lib;$(SolutionDir)CGP\Dependencies\GLFW\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)CGP\Dependencies\assimp\include;$(SolutionDir)CGP\Dependencies\GLEW\include;$(SolutionDir)CGP\External;$(SolutionDir)\CGP\Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)CGP\Dependencies\assimp\lib;$(SolutionDir)CGP\Dependencies\GLEW\lib;$(SolutionDir)CGP\Dependencies\GLFW\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -184,11 +196,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;kernel32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;kernel32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -200,13 +213,14 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;kernel32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;kernel32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

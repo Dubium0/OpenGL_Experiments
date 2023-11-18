@@ -1,7 +1,7 @@
 #include "Renderer.h"
 
 Renderer::Renderer(const void* vertices, int size):
-	vao(new VertexArray()), vbo(new VertexBuffer(vertices, size)),
+	vao(new VertexArray()), vbo(new VertexBuffer(vertices, size)),ebo(nullptr), indexCount(0),
 	 view(glm::mat4(1.0f)), projection(glm::mat4(1.0f)),vertexCount(size) {
 
 	VertexArrayAttribute  attributes = VertexArrayAttribute();
@@ -15,8 +15,26 @@ Renderer::Renderer(const void* vertices, int size):
 	
 
 }
+
+
+Renderer::Renderer(const void* vertices, int verticesSize, const void* indices, int indicesSize) :
+	vao(new VertexArray()), vbo(new VertexBuffer(vertices, verticesSize)), ebo(new IndexBuffer(indices, indicesSize)),
+	view(glm::mat4(1.0f)), projection(glm::mat4(1.0f)), vertexCount(verticesSize), indexCount(indicesSize) {
+
+	VertexArrayAttribute  attributes = VertexArrayAttribute();
+	attributes.PushAttributef(3);// push positions
+	attributes.PushAttributef(3);// push normals
+	attributes.PushAttributef(2);// push texture coordinates
+	attributes.PushAttributef(3);// push Tangent
+	attributes.PushAttributef(3);// push BiTangent
+	// fill vertex array
+	vao->AddVertexArrayAttributef(*vbo,*ebo , attributes);
+	vao->UnBind();
+
+
+
+}
 void Renderer::Render( Material& materialTarget, Camera& cameraTarget) {
-	// make sure shader is activated
 	
 	view = cameraTarget.GetViewMatrix();
 	materialTarget.SetMaterialAttribute("view", view,S_MAT4);
@@ -24,7 +42,16 @@ void Renderer::Render( Material& materialTarget, Camera& cameraTarget) {
 	materialTarget.SetMaterialAttribute("projection", projection,S_MAT4);
 	materialTarget.Bind();
 	vao->Bind();
-	unsigned int count = (vertexCount / sizeof(float) ) / 8;
-	glDrawArrays(GL_TRIANGLES, 0,count );
+	if (ebo) {
+		unsigned int count = indexCount / sizeof(unsigned int);
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, 0);
+		glCheckError();
+	}
+	else {
+		unsigned int count = (vertexCount / sizeof(float) ) / 8;
+		glDrawArrays(GL_TRIANGLES, 0,count );
+		glCheckError();
+
+	}
 
 }

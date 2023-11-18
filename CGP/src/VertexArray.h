@@ -1,15 +1,35 @@
 #pragma once
 #include "Common.h"
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 #include <vector>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+struct Vertex {
+	// position
+	glm::vec3 Position;
+	// normal
+	glm::vec3 Normal;
+	// texCoords
+	glm::vec2 TexCoords;
+	// tangent
+	glm::vec3 Tangent;
+	// bitangent
+	glm::vec3 Bitangent;
+
+};
 
 
 class VertexArrayAttribute {
 private:
 	unsigned int stride;
 	std::vector<unsigned int> sizeArray;
+	
+
 
 public:
+	
 	VertexArrayAttribute() : stride(0) {};
 	void PushAttributef(unsigned int size) {
 		stride += size;
@@ -30,7 +50,7 @@ public:
 	VertexArray();
 	~VertexArray();
 	void AddVertexArrayAttributef(const VertexBuffer& vbo, const VertexArrayAttribute& attributes);
-	
+	void AddVertexArrayAttributef(const VertexBuffer& vbo, const IndexBuffer& ebo, const VertexArrayAttribute& attributes);
 	void Bind() const;
 	void UnBind() const;
 
