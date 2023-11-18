@@ -35,6 +35,7 @@ void Material::Bind(Shader& shader,TextureLoader& loader) const {
 				channel++;
 			}
 		}
+		
 	
 }
 

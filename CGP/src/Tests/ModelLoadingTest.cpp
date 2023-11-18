@@ -5,11 +5,11 @@ ModelLoadingTest::ModelLoadingTest() {
 
     // build and compile shaders
  // -------------------------
-    myShader = new Shader("Shaders/1.model_loading.vert", "Shaders/1.model_loading.frag");
+    myShader = new Shader("Shaders/directionalLight.vert", "Shaders/directionalLight.frag");
 
     // load models
     // -----------
-    myModel = new Model("External/Models/backpack/backpack.obj");
+    myModel = new Model("External/Models/humanMesh/FinalBaseMesh.obj");
 
     camera = new Camera();
 
@@ -47,8 +47,30 @@ void ModelLoadingTest::OnRender() {
     // render the loaded model
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-    model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+    model = glm::scale(model, glm::vec3(.2f, .2f, .2f));	// it's a bit too big for our scene, so scale it down
     myShader->SetMatrix4("model", model);
+
+    myShader->SetFloat("material.shininess", 32.0f);
+    // directional light setup
+    float sinVal = (sin(t * 2) + 1.0f) / 2.0f;
+    glm::vec3 directionalLightDirection(-.5, -.2f, -.3f);
+    glm::vec3 directionalLightAmbient(0.4f, 0.4f, 0.4f);
+    glm::vec3 directionalLightDiffuse(0.9f, 0.9f, 0.9f);
+    glm::vec3 directionalLightSpecular(1.f, 1.f, 1.f);
+    myShader->SetVec3("lightMaterial.direction", directionalLightDirection);
+    myShader->SetVec3("lightMaterial.ambient", directionalLightAmbient);
+    myShader->SetVec3("lightMaterial.diffuse", directionalLightDiffuse);
+    myShader->SetVec3("lightMaterial.specular", directionalLightSpecular);
+    myShader->SetBool("isColorShading", true);
+    glm::vec3 objectAmbient(1.f, 0.f, 0.f);
+    glm::vec3 objectDiffuse(0.3f, 0.5f, 0.3f);
+    glm::vec3 objectSpecular(1.f, 1.f, 1.f);
+    myShader->SetVec3("material.diffuse", objectDiffuse);
+    myShader->SetVec3("material.ambient", objectAmbient);
+    myShader->SetVec3("material.specular", objectSpecular);
+    myShader->SetVec3("viewPos", camera->Position);
+
+
     myModel->RenderModel(*camera ,myShader );
 
 

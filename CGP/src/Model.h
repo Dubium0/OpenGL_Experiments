@@ -122,13 +122,14 @@ private:
 		Material* mesh_material = new Material();
 
 		std::vector<int> diffuseTextures = textureLoader->loadTextures(material, aiTextureType_DIFFUSE, directory, "material.diffuse");
-
+		
 		std::vector<int> specularTextures = textureLoader->loadTextures(material, aiTextureType_SPECULAR, directory, "material.specular");
 
 		std::vector<int> normalMaps = textureLoader->loadTextures(material, aiTextureType_HEIGHT, directory, "material.normal");
 
 		std::vector<int> heightMaps = textureLoader->loadTextures(material, aiTextureType_AMBIENT, directory, "material.height");
 
+	//	textureLoader->PrintAllTexturesLoaded();
 		mesh_material->AddTexture("material.diffuse", diffuseTextures);
 		mesh_material->AddTexture("material.specular", specularTextures);
 		mesh_material->AddTexture("material.normal", normalMaps);

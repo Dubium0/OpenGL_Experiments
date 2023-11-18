@@ -23,6 +23,7 @@ float deltaTime;
 float lastFrame;
 
 Test* currentTest;
+ModelLoadingTest* modelLoadingTest;
 
 
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn) {
@@ -42,39 +43,46 @@ void processInput(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
     {
-        currentTest->~Test();
+        if (currentTest != modelLoadingTest)
+            currentTest->~Test();
         currentTest = new SpinningCubesTest();
 
     }
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
     {
-        currentTest->~Test();
+        if (currentTest != modelLoadingTest)
+            currentTest->~Test();
         currentTest = new LightingExperiments();
 
     }
 
     if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
     {
-        currentTest->~Test();
+        if (currentTest != modelLoadingTest)
+            currentTest->~Test();
         currentTest = new PointLightTest();
 
     }
     if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
     {
-        currentTest->~Test();
+        if (currentTest != modelLoadingTest)
+            currentTest->~Test();
         currentTest = new SpotLightTest();
 
     }
     if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
     {
-        currentTest->~Test();
+        if (currentTest != modelLoadingTest)
+            currentTest->~Test();
         currentTest = new MultipleLight();
 
     }
     if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
     {
-        currentTest->~Test();
-        currentTest = new ModelLoadingTest();
+       if(currentTest != modelLoadingTest)
+            currentTest->~Test();
+        currentTest = modelLoadingTest;
+        
 
     }
     
@@ -115,8 +123,8 @@ int main(void) {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     
-
-    currentTest = new ModelLoadingTest();
+    modelLoadingTest =  new ModelLoadingTest();
+    currentTest = modelLoadingTest;
   
   
   
