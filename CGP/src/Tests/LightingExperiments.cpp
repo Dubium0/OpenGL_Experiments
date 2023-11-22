@@ -112,7 +112,7 @@ LightingExperiments::~LightingExperiments() {
 
 }
 
-void LightingExperiments::OnRender() {
+void LightingExperiments::OnRender(int width, int height) {
     float t = static_cast<float>(glfwGetTime());
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

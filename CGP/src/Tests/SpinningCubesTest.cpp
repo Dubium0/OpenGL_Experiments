@@ -103,7 +103,7 @@ SpinningCubesTest::~SpinningCubesTest() {
 
     
 }
-void SpinningCubesTest::OnRender()  {
+void SpinningCubesTest::OnRender(int w, int h)  {
     float t = static_cast<float>(glfwGetTime());
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);

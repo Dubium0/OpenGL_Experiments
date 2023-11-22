@@ -19,6 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="External\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="External\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="External\imgui\imgui.cpp" />
+    <ClCompile Include="External\imgui\imgui_demo.cpp" />
+    <ClCompile Include="External\imgui\imgui_draw.cpp" />
+    <ClCompile Include="External\imgui\imgui_tables.cpp" />
+    <ClCompile Include="External\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="External\imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="External\stb_image.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\Material.cpp" />
@@ -42,6 +50,16 @@
     <ClInclude Include="Dependencies\GLEW\include\GL\wglew.h" />
     <ClInclude Include="Dependencies\GLFW\include\GLFW\glfw3.h" />
     <ClInclude Include="Dependencies\GLFW\include\GLFW\glfw3native.h" />
+    <ClInclude Include="External\imgui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="External\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="External\imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="External\imgui\imconfig.h" />
+    <ClInclude Include="External\imgui\imgui.h" />
+    <ClInclude Include="External\imgui\imgui_internal.h" />
+    <ClInclude Include="External\imgui\imstb_rectpack.h" />
+    <ClInclude Include="External\imgui\imstb_textedit.h" />
+    <ClInclude Include="External\imgui\imstb_truetype.h" />
+    <ClInclude Include="External\imgui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="External\stb_image.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Common.h" />
@@ -154,11 +172,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)CGP\Dependencies\assimp\include;$(SolutionDir)CGP\Dependencies\GLEW\include;$(SolutionDir)CGP\External;$(SolutionDir)\CGP\Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)CGP\External\imgui\backends;$(SolutionDir)CGP\External\imgui\;$(SolutionDir)CGP\Dependencies\assimp\include;$(SolutionDir)CGP\Dependencies\GLEW\include;$(SolutionDir)CGP\External;$(SolutionDir)\CGP\Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)CGP\Dependencies\assimp\lib;$(SolutionDir)CGP\Dependencies\GLEW\lib;$(SolutionDir)CGP\Dependencies\GLFW\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)CGP\Dependencies\assimp\include;$(SolutionDir)CGP\Dependencies\GLEW\include;$(SolutionDir)CGP\External;$(SolutionDir)\CGP\Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)CGP\External\imgui\backends;$(SolutionDir)CGP\External\imgui\;$(SolutionDir)CGP\Dependencies\assimp\include;$(SolutionDir)CGP\Dependencies\GLEW\include;$(SolutionDir)CGP\External;$(SolutionDir)\CGP\Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)CGP\Dependencies\assimp\lib;$(SolutionDir)CGP\Dependencies\GLEW\lib;$(SolutionDir)CGP\Dependencies\GLFW\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

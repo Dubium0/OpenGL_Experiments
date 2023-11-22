@@ -119,7 +119,7 @@ SpotLightTest::~SpotLightTest() {
 
 
 
-void SpotLightTest::OnRender() {
+void SpotLightTest::OnRender(int w, int h) {
     float t = static_cast<float>(glfwGetTime());
 
     glClearColor(0.28f, 0.28f, 0.28f, 1.0f);

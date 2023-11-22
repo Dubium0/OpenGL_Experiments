@@ -126,7 +126,7 @@ PointLightTest::~PointLightTest() {
 
 
 
-void PointLightTest::OnRender() {
+void PointLightTest::OnRender(int width, int height) {
     float t = static_cast<float>(glfwGetTime());
 
     glClearColor(0.28f, 0.28f, 0.28f, 1.0f);

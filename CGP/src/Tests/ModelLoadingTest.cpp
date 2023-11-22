@@ -12,7 +12,23 @@ ModelLoadingTest::ModelLoadingTest() {
     myModel = new Model("External/Models/humanMesh/FinalBaseMesh.obj");
 
     camera = new Camera();
-
+    myShader->Activate();
+    directionalLightDirection = glm::vec3(-.5, -.2f, -.3f);
+    directionalLightAmbient = glm::vec3(0.4f, 0.4f, 0.4f);
+    directionalLightDiffuse = glm::vec3(0.9f, 0.9f, 0.9f);
+    directionalLightSpecular = glm::vec3(1.f, 1.f, 1.f);
+    myShader->SetVec3("lightMaterial.direction", directionalLightDirection);
+    myShader->SetVec3("lightMaterial.ambient", directionalLightAmbient);
+    myShader->SetVec3("lightMaterial.diffuse", directionalLightDiffuse);
+    myShader->SetVec3("lightMaterial.specular", directionalLightSpecular);
+    myShader->SetBool("isColorShading", false);
+    objectAmbient = glm::vec3(1.f, 0.f, 0.f);
+    objectDiffuse = glm::vec3(0.3f, 0.5f, 0.3f);
+    objectSpecular = glm::vec3(1.f, 1.f, 1.f);
+    myShader->SetVec3("material.diffuse", objectDiffuse);
+    myShader->SetVec3("material.ambient", objectAmbient);
+    myShader->SetVec3("material.specular", objectSpecular);
+    myShader->Deactivate();
 
 }
 ModelLoadingTest::~ModelLoadingTest() {
@@ -23,9 +39,42 @@ ModelLoadingTest::~ModelLoadingTest() {
 }
 
 void ModelLoadingTest::OnUpdate(float deltaTime) {
+    
+    
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+    {   
+        ImGui::Begin("Light Editor ");
+        ImGui::Text("Change Light Settings here");
+        ImGui::SliderFloat3("Light Direction",glm::value_ptr(directionalLightDirection), -1.f, 1.f);
+        ImGui::ColorEdit3("Light Ambient Color",glm::value_ptr(directionalLightAmbient));
+        ImGui::ColorEdit3("Light Diffuse Color", glm::value_ptr(directionalLightDiffuse));
+        ImGui::ColorEdit3("Light Specular Color", glm::value_ptr(directionalLightSpecular));
+        ImGui::End();
+
+        ImGui::Begin("Material Editor ");
+        ImGui::Text("Change Material Settings here");
+        ImGui::ColorEdit3("Ambient Color", glm::value_ptr(objectAmbient));
+        ImGui::ColorEdit3("Diffuse Color", glm::value_ptr(objectDiffuse));
+        ImGui::ColorEdit3("Specular Color", glm::value_ptr(objectSpecular));
+        ImGui::End();
+
+    }
+   
+    myShader->SetVec3("lightMaterial.direction", directionalLightDirection);
+    myShader->SetVec3("lightMaterial.ambient", directionalLightAmbient);
+    myShader->SetVec3("lightMaterial.diffuse", directionalLightDiffuse);
+    myShader->SetVec3("lightMaterial.specular", directionalLightSpecular);
+
+    myShader->SetVec3("material.diffuse", objectDiffuse);
+    myShader->SetVec3("material.ambient", objectAmbient);
+    myShader->SetVec3("material.specular", objectSpecular);
+
 
 }
-void ModelLoadingTest::OnRender() {
+void ModelLoadingTest::OnRender(int Width, int Height) {
 
     float t = static_cast<float>(glfwGetTime());
 
@@ -39,7 +88,7 @@ void ModelLoadingTest::OnRender() {
     myShader->Activate();
 
     // view/projection transformations
-    glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom), 800.0f / 600.0f, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(camera->Zoom),(float) Width / Height, 0.1f, 100.0f);
     glm::mat4 view = camera->GetViewMatrix();
     myShader->SetMatrix4("projection", projection);
     myShader->SetMatrix4("view", view);
@@ -53,47 +102,18 @@ void ModelLoadingTest::OnRender() {
     myShader->SetFloat("material.shininess", 32.0f);
     // directional light setup
     float sinVal = (sin(t * 2) + 1.0f) / 2.0f;
-    glm::vec3 directionalLightDirection(-.5, -.2f, -.3f);
-    glm::vec3 directionalLightAmbient(0.4f, 0.4f, 0.4f);
-    glm::vec3 directionalLightDiffuse(0.9f, 0.9f, 0.9f);
-    glm::vec3 directionalLightSpecular(1.f, 1.f, 1.f);
-    myShader->SetVec3("lightMaterial.direction", directionalLightDirection);
-    myShader->SetVec3("lightMaterial.ambient", directionalLightAmbient);
-    myShader->SetVec3("lightMaterial.diffuse", directionalLightDiffuse);
-    myShader->SetVec3("lightMaterial.specular", directionalLightSpecular);
-    myShader->SetBool("isColorShading", true);
-    glm::vec3 objectAmbient(1.f, 0.f, 0.f);
-    glm::vec3 objectDiffuse(0.3f, 0.5f, 0.3f);
-    glm::vec3 objectSpecular(1.f, 1.f, 1.f);
-    myShader->SetVec3("material.diffuse", objectDiffuse);
-    myShader->SetVec3("material.ambient", objectAmbient);
-    myShader->SetVec3("material.specular", objectSpecular);
+    
     myShader->SetVec3("viewPos", camera->Position);
-
+    myShader->SetBool("isColorShading", true);
 
     myModel->RenderModel(*camera ,myShader );
 
 
 }
 void ModelLoadingTest::MouseCallBack(GLFWwindow* window, double xposIn, double yposIn, float deltaTime) {
-    float xpos = static_cast<float>(xposIn);
-    float ypos = static_cast<float>(yposIn);
+    
 
-    if (firstMouse)
-    {
-
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-
-    lastX = xpos;
-    lastY = ypos;
-
-    camera->ProcessMouseMovement(xoffset, yoffset);
+    camera->ProcessMouseMovement(xposIn, yposIn);
 
 
 }
